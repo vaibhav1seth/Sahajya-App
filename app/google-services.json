@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "965553655527",
+    "firebase_url": "https://sahajya-app.firebaseio.com",
+    "project_id": "sahajya-app",
+    "storage_bucket": "sahajya-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:965553655527:android:daedfeefc240e8c4",
+        "android_client_info": {
+          "package_name": "com.example.vaibhav.sahajya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "965553655527-4idvin0v6r3mkiv1gb1p0a24u30pkvcf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vaibhav.sahajya",
+            "certificate_hash": "a8d732d007c5c9984e4c2fdf08be9fbf36be647e"
+          }
+        },
+        {
+          "client_id": "965553655527-i3tbh2jpkq33r9jqbqi50o4hd15n8p0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsv6Li6PEjsTx2VWovGkCodGyAN_ykZsM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "965553655527-i3tbh2jpkq33r9jqbqi50o4hd15n8p0u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

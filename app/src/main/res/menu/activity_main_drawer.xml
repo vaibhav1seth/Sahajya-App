@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/emergency_help"
+            android:icon="@drawable/ic_emergency_call"
+            android:title="Emergency Help" />
+        <item
+            android:id="@+id/relief_camp"
+            android:icon="@drawable/ic_relief_camp"
+            android:title="Relief Camps" />
+        <item
+            android:id="@+id/online_medical"
+            android:icon="@drawable/ic_medical"
+            android:title="Online Medical Assistance" />
+        <item
+            android:id="@+id/missing_people"
+            android:icon="@drawable/ic_missing_people"
+            android:title="Missing People" />
+        <item
+            android:id="@+id/volunteer_signup"
+            android:icon="@drawable/ic_sign_up"
+            android:title="Volunteer's Signup" />
+    </group>
+<!--
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
+-->
+</menu>
