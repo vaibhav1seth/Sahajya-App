@@ -86,23 +86,22 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.emergency_help) {
             // Handle the camera action
-            finish();
             startActivity(new Intent(this,emergency_help.class));
 
         } else if (id == R.id.online_medical) {
-            finish();
+
             startActivity(new Intent(this,online_medical.class));
 
         } else if (id == R.id.volunteer_signup) {
-            finish();
+
             startActivity(new Intent(this,volunteer_signup.class));
 
         } else if (id == R.id.relief_camp) {
-            finish();
+
             startActivity(new Intent(this,relief_camp.class));
 
         } else if (id == R.id.missing_people) {
-            finish();
+
             startActivity(new Intent(this,missing_people.class));
 
         }

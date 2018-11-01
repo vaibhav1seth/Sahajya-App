@@ -5,8 +5,9 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.vaibhav.sahajya"
-        minSdkVersion 14
+        minSdkVersion 21
         targetSdkVersion 28
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -38,6 +39,8 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-auth:16.0.4'
     implementation 'com.google.firebase:firebase-database:16.0.3'
+    implementation 'com.android.support:multidex:1.0.3'
+
 }
 //ext { googlePlayServicesVersion = "15.0.1" }
 

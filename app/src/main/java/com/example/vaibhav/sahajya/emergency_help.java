@@ -85,7 +85,7 @@ public class emergency_help extends AppCompatActivity {
         });
         final ArrayAdapter<String> arrayAdaptereh = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, SPINNERLISTEH);
-        final MaterialBetterSpinner materialBetterSpinnereh = (MaterialBetterSpinner) findViewById(R.id.location);
+        //final MaterialBetterSpinner materialBetterSpinnereh = (MaterialBetterSpinner) findViewById(R.id.location);
         submit_emergency.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
