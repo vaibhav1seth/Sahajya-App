@@ -33,7 +33,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,TextToSpeech.OnInitListener,TextToSpeech.OnUtteranceCompletedListener {
     TextToSpeech textToSpeech;
     SensorManager sensorManager;
+    ViewFlipper v_flipper;
 
     public String getLatitude() {
         return Latitude;
@@ -81,6 +84,11 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
         firebaseFirestore = FirebaseFirestore.getInstance();
+        int images[] = {R.drawable.emergencyhelp,R.drawable.reliefcamps,R.drawable.medical,R.drawable.missing,R.drawable.volunteer};
+        v_flipper = findViewById(R.id.v_flipper);
+        for (int image : images){
+            flipperimage(image );
+        }
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -154,6 +162,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
 
     @Override
     public void onBackPressed() {
@@ -270,6 +279,8 @@ public class MainActivity extends AppCompatActivity
             notificationManager.createNotificationChannel(notificationChannel);
         }
     }*/
+    int count =0;
+
     private final SensorEventListener sensorListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent event) {
@@ -282,6 +293,8 @@ public class MainActivity extends AppCompatActivity
             acelval = (float) Math.sqrt((double) (x * x + y * y + z * z));
             float delta = acelval - acelLast;
             shake = shake * 0.9f + delta;
+
+
 
             if (shake > 12)
             {
@@ -330,6 +343,19 @@ public class MainActivity extends AppCompatActivity
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
             }
         }
+    }
+
+    public void flipperimage (int image){
+
+        ImageView imageView = new ImageView(this);
+        imageView.setBackgroundResource(image);
+
+        v_flipper.addView(imageView);
+        v_flipper.setFlipInterval(4000);
+        v_flipper.setAutoStart(true);
+
+        v_flipper.setInAnimation(this,android.R.anim.slide_in_left);
+        v_flipper.setOutAnimation(this,android.R.anim.slide_out_right);
     }
 
 }

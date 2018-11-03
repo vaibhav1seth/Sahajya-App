@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -18,20 +20,31 @@ import java.util.List;
 
 public class online_medical extends AppCompatActivity {
 
-    private DatabaseReference mDatabase;
-    private ArrayList<MessageOBJ> msgList;
+  //  private DatabaseReference mDatabase;
+    //private ArrayList<MessageOBJ> msgList;
 // ...
+    private Button submit_anonymous;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_help);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        msgList = new ArrayList<MessageOBJ>();
+        submit_anonymous = (Button)findViewById(R.id.button_anonymous);
+
+        submit_anonymous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.d("shuru","nayi activity invoked");
+
+            }
+        });
+      //  mDatabase = FirebaseDatabase.getInstance().getReference();
+        //msgList = new ArrayList<MessageOBJ>();
 
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats");
+        //DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats");
 //        reference.addValueEventListener(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -55,33 +68,33 @@ public class online_medical extends AppCompatActivity {
 //            }
 //        });
 //
-        reference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                MessageOBJ ms = dataSnapshot.getValue(MessageOBJ.class);
-                Log.d("sickmsg",ms.toString());
-            }
+       // reference.addChildEventListener(new ChildEventListener() {
+         //   @Override
+           // public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+              //  MessageOBJ ms = dataSnapshot.getValue(MessageOBJ.class);
+             //   Log.d("sickmsg",ms.toString());
+  //          }
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            //@Override
+            //public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-            }
+            //}
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+          //  @Override
+            //public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
-            }
+            //}
 
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            //@Override
+            //public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-            }
+            //}
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            //@Override
+            //public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+            //}
+       // });
 
     }
 }
