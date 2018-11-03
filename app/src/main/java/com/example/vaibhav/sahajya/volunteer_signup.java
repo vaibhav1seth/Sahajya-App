@@ -67,7 +67,7 @@ public class volunteer_signup extends AppCompatActivity {
                 user_signup.put("email", emaildb);
                 user_signup.put("age", agedb);
                 user_signup.put("contact", mobiledb);
-                user_signup.put("camp preference", camp_pref);
+                user_signup.put("camp_preference", camp_pref);
                 firebaseFirestore.collection("Volunteers").add(user_signup).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {

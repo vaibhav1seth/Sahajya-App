@@ -1,20 +1,29 @@
 package com.example.vaibhav.sahajya;
 
+import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,9 +38,9 @@ import java.util.Map;
 public class emergency_help extends AppCompatActivity {
 
     // Constants for the notification actions buttons.
-    private static final String ACTION_UPDATE_NOTIFICATION ="com.android.example.notifyme.ACTION_UPDATE_NOTIFICATION";
+    private static final String ACTION_UPDATE_NOTIFICATION = "com.android.example.notifyme.ACTION_UPDATE_NOTIFICATION";
     // Notification channel ID.
-    private static final String PRIMARY_CHANNEL_ID ="primary_notification_channel";
+    private static final String PRIMARY_CHANNEL_ID = "primary_notification_channel";
     // Notification ID.
     private static final int NOTIFICATION_ID = 0;
     private NotificationManager mNotifyManager;
@@ -40,8 +49,33 @@ public class emergency_help extends AppCompatActivity {
     private EditText contact;
     private EditText emergency_text;
     private CheckBox yes_box;
+    private TextView loc;
     private CheckBox no_box;
     private Button submit_emergency;
+    String Latitude;
+
+    public String getLatitude() {
+        return Latitude;
+    }
+
+    public String getLongitude() {
+        return Longitude;
+    }
+
+    public void setLatitude(String latitude) {
+        Latitude = latitude;
+    }
+
+    public void setLongitude(String longitude) {
+        Longitude = longitude;
+    }
+
+    String Longitude;
+    private LocationManager locationManager;
+    private LocationListener locationListener;
+
+
+
     String[] SPINNERLISTEH = {"Manual", "Automatically"};
     private FirebaseFirestore firebaseFirestore;
     int flag = 0;
@@ -58,17 +92,73 @@ public class emergency_help extends AppCompatActivity {
         }
     }
     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+            if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
+                    ==PackageManager.PERMISSION_GRANTED){
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergency_help);
+        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+
+                Log.d("Location", location.toString());
+                double lat = location.getLatitude();
+                double longi = location.getLongitude();
+                final String a = ""+lat;
+                final String b = "" + longi;
+                setLatitude(a);
+                setLongitude(b);
+
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
+        }
+        else {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 100, locationListener);
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 100, locationListener);
         firebaseFirestore = FirebaseFirestore.getInstance();
         contact = (EditText) findViewById(R.id.contactid);
         emergency_text = (EditText) findViewById(R.id.emergency_context);
         yes_box = (CheckBox) findViewById(R.id.yesid);
         no_box = (CheckBox) findViewById(R.id.noid);
         submit_emergency = (Button) findViewById(R.id.submit_emergency);
+
         createNotificationChannel();
         yes_box.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,9 +192,12 @@ public class emergency_help extends AppCompatActivity {
                     airliftdb = "no";
 
                 }
+
                 final Map<String, String> emergency_help_map = new HashMap<>();
                 emergency_help_map.put("Contact", contact_db);
                 emergency_help_map.put("Emergency", emergency_textdb);
+                emergency_help_map.put("Latitude",getLatitude());
+                emergency_help_map.put("Longitude",getLongitude());
 
                 emergency_help_map.put("Airlift", airliftdb);
                 firebaseFirestore.collection("Emergency Help").add(emergency_help_map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -162,6 +255,8 @@ public class emergency_help extends AppCompatActivity {
         NotificationCompat.Builder notifyBuilder = getNotificationBuilder();
         mNotifyManager.notify(NOTIFICATION_ID, notifyBuilder.build());
     }
+
+
 
     public void createNotificationChannel()
     {
