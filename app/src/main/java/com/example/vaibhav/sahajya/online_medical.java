@@ -1,5 +1,6 @@
 package com.example.vaibhav.sahajya;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,8 @@ public class online_medical extends AppCompatActivity {
             public void onClick(View view) {
 
                 Log.d("shuru","nayi activity invoked");
+                Intent intent = new Intent("com.example.vaibhav.askdoc");
+                startActivity(intent);
 
             }
         });
