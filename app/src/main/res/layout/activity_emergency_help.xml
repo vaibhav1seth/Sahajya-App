@@ -37,13 +37,14 @@
             app:met_floatingLabel="highlight"
             android:hint="Describe the emergency situation"/>
 
-        <com.rengwuxian.materialedittext.MaterialEditText
+        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+
+            android:id="@+id/choice_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/safe_spot"
+            android:layout_alignParentTop="true"
             android:layout_marginTop="10dp"
-            app:met_floatingLabel="highlight"
-            android:hint="Nearest safe spot"/>
+            android:hint="Please select a ward" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -78,7 +78,8 @@ public class emergency_help extends AppCompatActivity {
 
 
 
-    String[] SPINNERLISTEH = {"Manual", "Automatically"};
+    String[] SPINNERLISTEH = {"A Narayanapura","Adugodi","Agara","Agrahara Dasarahalli","Anjanapura","Arakere","Arakere","B T M Layout","Bagalakunte","Banasavadi","Banashankari Temple","Basavanagudi","Basavanapura","Chickpete","Cv Raman Nagar","Dayananda Nagar","Devasandra","Gandhinagar","Gandhinagar","Gottigere","Hal Airport","Halsoor","Hbr Layout","Hebbal","Hmt","Hosahalli","Hosakerehalli","Hsr Layout","J P Nagar","Jakkasandra","Jalahalli","Jayanagara","JP Park","K R Market","K R Pura","Kammanahalli","Koramangala","Kuvempu Nagar","Malleswaram","Marattahalli","Mattikere","Nagapura","Nagavara","Peenya Industrial Area","Radhakrishna Temple","Rajajinagar","Rajarajeshwari Nagar","Sanjay Nagar","Shakambari Nagar","Shanthi Nagar","Shivaji Nagar","Srinagara","Sunkenahalli","Vasanth Nagar","Vasanthpura","Vijayanagara","Vishveshwara Puram","Vrisabhavathi Nagar","Yelchenahalli","Yeshwanthpura"};
+
     private FirebaseFirestore firebaseFirestore;
     int flag = 0;
     /*public void checkbox_clicked(View view)
@@ -160,6 +161,10 @@ public class emergency_help extends AppCompatActivity {
         yes_box = (CheckBox) findViewById(R.id.yesid);
         no_box = (CheckBox) findViewById(R.id.noid);
         submit_emergency = (Button) findViewById(R.id.submit_emergency);
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, SPINNERLISTEH);
+        final MaterialBetterSpinner betterSpinner = (MaterialBetterSpinner) findViewById(R.id.choice_location);
+        betterSpinner.setAdapter(arrayAdapter);
 
         createNotificationChannel();
         yes_box.setOnClickListener(new View.OnClickListener() {
@@ -185,6 +190,7 @@ public class emergency_help extends AppCompatActivity {
 
                 String contact_db = contact.getText().toString();
                 String emergency_textdb = emergency_text.getText().toString();
+                String loc_pref = betterSpinner.getText().toString();
                 String airliftdb;
                 if (flag == 0) {
                     airliftdb = "yes";
@@ -200,7 +206,7 @@ public class emergency_help extends AppCompatActivity {
                 emergency_help_map.put("Emergency", emergency_textdb);
                 emergency_help_map.put("Latitude",getLatitude());
                 emergency_help_map.put("Longitude",getLongitude());
-
+                emergency_help_map.put("Ward",loc_pref);
                 emergency_help_map.put("Airlift", airliftdb);
                 firebaseFirestore.collection("Emergency Help").add(emergency_help_map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
